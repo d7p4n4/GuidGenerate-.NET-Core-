@@ -21,9 +21,9 @@ namespace GuidGenerate
                             Console.WriteLine(g.Key + pair.Key + " value: " + g.Value);
                             if (g.Key.Equals(pair.Key) && g.Value.Equals(""))
                             {
-                                string rand = RandomString.randomString(8);
+                                Guid id = Guid.NewGuid();
 
-                                string newLine = "            [GUID(\"" + rand + "\")]\n";
+                                string newLine = "            [GUID(\"" + id + "\")]\n";
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
 
@@ -75,9 +75,9 @@ namespace GuidGenerate
                 {
                     if (text[i].Contains("#className#"))
                     {
-                        string rand = RandomString.randomString(8);
+                        Guid id = Guid.NewGuid();
 
-                        string newLine = "\n       [GUID(\"" + rand + "\")]\n";
+                        string newLine = "\n       [GUID(\"" + id + "\")]\n";
                         replaced = replaced + newLine + text[i];
                     }
                 }
