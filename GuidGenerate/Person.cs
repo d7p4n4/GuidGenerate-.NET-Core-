@@ -4,7 +4,7 @@ namespace GuidGenerate
 {
     public class Person
     {
-        [GUID("0000-8")]
+        [GUID()]
         public string name { get; set; }
         public string address { get; set; }
 
