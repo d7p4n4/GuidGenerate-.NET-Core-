@@ -6,7 +6,7 @@ namespace GuidGenerate
 {
     class GenerateClass
     {
-        public static string generateClass(string[] text, string package, string namespaceName, Boolean classAttr, Dictionary<string, string> map, Dictionary<string, string> guid)
+        public static string generateClass(string[] text, string package, string className, Boolean classAttr, Dictionary<string, string> map, Dictionary<string, string> guid)
         {
             string replaced = "";
 
@@ -18,7 +18,6 @@ namespace GuidGenerate
                     {
                         foreach (var g in guid)
                         {
-                            Console.WriteLine(g.Key + pair.Key + " value: " + g.Value);
                             if (g.Key.Equals(pair.Key) && g.Value.Equals(""))
                             {
                                 Guid id = Guid.NewGuid();
@@ -88,7 +87,7 @@ namespace GuidGenerate
             }
             replaced = replaced.Replace("#namespaceName#", package);
             
-            replaced = replaced.Replace("#className#", namespaceName);
+            replaced = replaced.Replace("#className#", className + "Base");
 
             return replaced;
         }

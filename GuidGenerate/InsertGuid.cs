@@ -17,7 +17,21 @@ namespace GuidGenerate
 
             foreach(var p in prop)
             {
-                props.Add(p.Name, p.PropertyType.ToString().Substring(p.PropertyType.ToString().IndexOf(".") + 1));
+                if (p.PropertyType.ToString().StartsWith("System.Collections.Generic."))
+                {
+                    string type = p.PropertyType.ToString();
+                    string outType = type.Substring(0, type.IndexOf("`")).Replace("System.Collections.Generic.", "");
+                    string innerType = type.Substring(type.IndexOf("`"));
+                    string finalInnerType = innerType.Substring(innerType.IndexOf(".") + 1).Replace("]", "");
+                    Console.WriteLine(finalInnerType);
+
+                    props.Add(p.Name, outType + "<" + finalInnerType + ">");
+
+                }
+                else
+                {
+                    props.Add(p.Name, p.PropertyType.ToString().Substring(p.PropertyType.ToString().IndexOf(".") + 1));
+                }
             }
 
             return props;
@@ -63,8 +77,7 @@ namespace GuidGenerate
         public static string[] readIn(string fileName)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, fileName + ".txt");
-            Console.WriteLine(textFile);
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, fileName + "Base.txt");
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -75,7 +88,7 @@ namespace GuidGenerate
 
         public static void writeOut(string text, string fileName)
         {
-            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\" + fileName + ".cs"), text);
+            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\" + fileName + "Base.cs"), text);
             
         }
     }

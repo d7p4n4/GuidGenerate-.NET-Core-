@@ -19,9 +19,13 @@ namespace GuidGenerate
 
             Boolean classAttr = InsertGuid.hasClassAttr(typeof(Person));
 
-            string generated = GenerateClass.generateClass(text, "GuidGenerate", "Osztaly", classAttr, props, attrs);
+            string generated = GenerateClass.generateClass(text, "GuidGenerate", "Person", classAttr, props, attrs);
 
-            InsertGuid.writeOut(generated, "uj");
+            InsertGuid.writeOut(generated, "Person");
+
+            string[] algebraText = GenerateClassAlgebra.readIn("Template");
+            string algebra = GenerateClassAlgebra.generateClass(algebraText, "GuidGenerate", "Person", props);
+            Console.WriteLine(algebra);
         }
     }
 }
