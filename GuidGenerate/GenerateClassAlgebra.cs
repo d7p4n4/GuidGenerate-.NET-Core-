@@ -114,7 +114,7 @@ namespace GuidGenerate
 
         public static void writeOut(string text, string fileName)
         {
-            File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\" + fileName + "Algebra.cs"), text);
+            File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Generated\\" + fileName + "Algebra.cs"), text);
 
         }
     }

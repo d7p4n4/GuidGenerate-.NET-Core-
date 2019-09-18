@@ -109,7 +109,7 @@ namespace GuidGenerate
 
         public static void writeOut(string text, string fileName)
         {
-            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\" + fileName + "Base.cs"), text);
+            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Generated\\" + fileName + "Base.cs"), text);
 
         }
     }

@@ -29,7 +29,6 @@ namespace GuidGenerate
         {
 
             string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, fileName + ".txt");
-            Console.WriteLine(textFile);
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -40,7 +39,7 @@ namespace GuidGenerate
 
         public static void writeOut(string text, string fileName)
         {
-            File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\" + fileName + ".cs"), text);
+            File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Generated\\" + fileName + ".cs"), text);
 
         }
     }
