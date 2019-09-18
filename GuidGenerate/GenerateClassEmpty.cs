@@ -7,9 +7,9 @@ namespace GuidGenerate
 {
     class GenerateClassEmpty
     {
-        public static void generateClass(string templateName, string package, string className)
+        public static void generateClass(string templateName, string languageExtension, string package, string className)
         {
-            string[] text = readIn(templateName);
+            string[] text = readIn(templateName, languageExtension);
 
             string replaced = "";
 
@@ -22,13 +22,13 @@ namespace GuidGenerate
             replaced = replaced.Replace("#className#", className);
             replaced = replaced.Replace("#parentClassName#", className + "Algebra");
 
-            writeOut(replaced, className);
+            writeOut(replaced, className, languageExtension);
         }
 
-                public static string[] readIn(string fileName)
+                public static string[] readIn(string fileName, string languageExtension)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, fileName + ".txt");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Templates\\", fileName + "." + languageExtension + "T");
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -37,9 +37,9 @@ namespace GuidGenerate
 
         }
 
-        public static void writeOut(string text, string fileName)
+        public static void writeOut(string text, string fileName, string languageExtension)
         {
-            File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Generated\\" + fileName + ".cs"), text);
+            File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Generated\\" + fileName + "." + languageExtension), text);
 
         }
     }

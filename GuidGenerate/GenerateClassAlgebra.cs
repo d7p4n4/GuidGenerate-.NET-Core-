@@ -7,9 +7,9 @@ namespace GuidGenerate
 {
     class GenerateClassAlgebra
     {
-        public static void generateClass(string templateName, string package, string className, Dictionary<string, string> map)
+        public static void generateClass(string templateName, string languageExtension, string package, string className, Dictionary<string, string> map)
         {
-            string[] text = readIn(templateName);
+            string[] text = readIn(templateName, languageExtension);
 
             string replaced = "";
             string newLine = "";
@@ -54,15 +54,14 @@ namespace GuidGenerate
                         if (p.Value.StartsWith("List") || p.Value.StartsWith("Dictionary"))
                         {
                             newLine = text[i + 1].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1));
-                            newLine = newLine + "\n" + text[i + 2] + "\n" + "\n" + text[i + 3] + "\n" + text[i + 4] + "\n";
-                            newLine = newLine + text[i + 5].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1));
-                            newLine = newLine + "\n" + text[i + 6] + "\n" + text[i + 7] + "\n" + text[i + 8] + "\n" +
-                                text[i + 9] + "\n" + text[i + 10] + "\n" + text[i + 11] + "\n";
+                            newLine = newLine + "\n" + text[i + 2] + "\n";
+                            newLine = newLine + text[i + 3].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1));
+                            newLine = newLine + "\n" + text[i + 4] + "\n" + text[i + 5] + "\n" + text[i + 6] + "\n";
                             replaced = replaced + newLine + "\n\n";
                         }
                     }
 
-                    i = i + 11;
+                    i = i + 6;
                 }
                 else if (text[i].Contains("#countMember#"))
                 {
@@ -71,17 +70,16 @@ namespace GuidGenerate
                         if (p.Value.StartsWith("List") || p.Value.StartsWith("Dictionary"))
                         {
                             newLine = text[i + 1].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1));
-                            newLine = newLine + "\n" + text[i + 2] + "\n" + "\n" + text[i + 3] + "\n" + text[i + 4] + "\n";
-                            newLine = newLine + text[i + 5].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1));
-                            newLine = newLine + "\n" + text[i + 6] + "\n" + text[i + 7] + "\n" + text[i + 8] + "\n" +
-                                text[i + 9] + "\n" + text[i + 10] + "\n" + text[i + 11] + "\n" + text[i + 12] + "\n" + 
-                                text[i + 13] + "\n" + text[i + 14] + "\n" + text[i + 15] + "\n" + text[i + 16] + "\n" + 
-                                text[i + 17] + "\n" + text[i + 18] + "\n";
+                            newLine = newLine + "\n" + text[i + 2] + "\n";
+                            newLine = newLine + text[i + 3].Replace("#propName#", p.Key.Substring(0, 1).ToUpper() + p.Key.Substring(1));
+                            newLine = newLine + "\n" + text[i + 4] + "\n" + text[i + 5] + "\n" + text[i + 6] + "\n" + 
+                                text[i + 7] + "\n" + text[i + 8] + "\n" + text[i + 9] + "\n" + text[i + 10] + "\n" + 
+                                text[i + 11] + "\n" + text[i + 12] + "\n" + text[i + 13];
                             replaced = replaced + newLine + "\n\n";
                         }
                     }
 
-                    i = i + 18;
+                    i = i + 13;
                 }
                 else
                 {
@@ -94,15 +92,15 @@ namespace GuidGenerate
             replaced = replaced.Replace("#className#", className + "Algebra");
             replaced = replaced.Replace("#parentClassName#", className + "Base");
 
-            writeOut(replaced, className);
+            writeOut(replaced, className, languageExtension);
 
-            GenerateClassEmpty.generateClass(templateName, package, className);
+            GenerateClassEmpty.generateClass(templateName, languageExtension, package, className);
         }
 
-            public static string[] readIn(string fileName)
+            public static string[] readIn(string fileName, string languageExtension)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, fileName + "Algebra.txt");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Templates\\", fileName + "Algebra." + languageExtension + "T");
             Console.WriteLine(textFile);
 
             string[] text = File.ReadAllLines(textFile);
@@ -112,9 +110,9 @@ namespace GuidGenerate
 
         }
 
-        public static void writeOut(string text, string fileName)
+        public static void writeOut(string text, string fileName, string languageExtension)
         {
-            File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Generated\\" + fileName + "Algebra.cs"), text);
+            File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Generated\\" + fileName + "Algebra." + languageExtension), text);
 
         }
     }

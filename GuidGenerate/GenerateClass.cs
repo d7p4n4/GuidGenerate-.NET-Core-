@@ -7,9 +7,9 @@ namespace GuidGenerate
 {
     class GenerateClass
     {
-        public static void generateClass(string fileName, string package, string className, Boolean classAttr, Dictionary<string, string> map, Dictionary<string, string> guid)
+        public static void generateClass(string fileName, string languageExtension, string package, string className, Boolean classAttr, Dictionary<string, string> map, Dictionary<string, string> guid)
         {
-            string[] text = readIn(fileName);
+            string[] text = readIn(fileName, languageExtension);
             string replaced = "";
 
             for (int i = 0; i < text.Length; i++)
@@ -23,8 +23,15 @@ namespace GuidGenerate
                             if (g.Key.Equals(pair.Key) && g.Value.Equals(""))
                             {
                                 Guid id = Guid.NewGuid();
+                                string newLine = "";
 
-                                string newLine = "            [GUID(\"" + id + "\")]\n";
+                                if (languageExtension.Equals("cs"))
+                                {
+                                    newLine = "            [GUID(\"" + id + "\")]\n";
+                                } else if (languageExtension.Equals("java"))
+                                {
+                                    newLine = "            @GUID(\"" + id + "\")\n";
+                                }
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
 
@@ -33,7 +40,16 @@ namespace GuidGenerate
                             }
                             else if (g.Key.Equals(pair.Key))
                             {
-                                string newLine = "            [GUID(\"" + g.Value + "\")]\n";
+                                string newLine = "";
+
+                                if (languageExtension.Equals("cs"))
+                                {
+                                    newLine = "            [GUID(\"" + g.Value + "\")]\n";
+                                }
+                                else if (languageExtension.Equals("java"))
+                                {
+                                    newLine = "            @GUID(\"" + g.Value + "\")\n";
+                                }
                                 newLine = newLine + text[i + 1].Replace("#type#", pair.Value);
                                 newLine = newLine.Replace("#prop#", pair.Key);
 
@@ -49,7 +65,7 @@ namespace GuidGenerate
                     foreach (var pair in map)
                     {
                         string newLine = text[i + 1].Replace("#type#", pair.Value);
-                        newLine = newLine.Replace("#getProp#", "get" + pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
+                        newLine = newLine.Replace("#prop#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
 
                         replaced = replaced + "\n" + newLine;
 
@@ -62,7 +78,7 @@ namespace GuidGenerate
                 {
                     foreach (var pair in map)
                     {
-                        string newLine = text[i + 1].Replace("#setProp#", "set" + pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
+                        string newLine = text[i + 1].Replace("#prop#", pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
                         newLine = newLine.Replace("#type#", pair.Value);
 
                         replaced = replaced + "\n" + newLine;
@@ -77,8 +93,16 @@ namespace GuidGenerate
                     if (text[i].Contains("#className#"))
                     {
                         Guid id = Guid.NewGuid();
+                        string newLine = "";
 
-                        string newLine = "\n       [GUID(\"" + id + "\")]\n";
+                        if (languageExtension.Equals("cs"))
+                        {
+                            newLine = "            [GUID(\"" + id + "\")]\n";
+                        }
+                        else if (languageExtension.Equals("java"))
+                        {
+                            newLine = "            @GUID(\"" + id + "\")\n";
+                        }
                         replaced = replaced + newLine + text[i];
                     }
                 }
@@ -90,15 +114,15 @@ namespace GuidGenerate
             replaced = replaced.Replace("#namespaceName#", package);
             replaced = replaced.Replace("#className#", className + "Base");
 
-            writeOut(replaced, className);
+            writeOut(replaced, className, languageExtension);
 
-            GenerateClassAlgebra.generateClass(fileName, package, className, map);
+            GenerateClassAlgebra.generateClass(fileName, languageExtension, package, className, map);
         }
 
-        public static string[] readIn(string fileName)
+        public static string[] readIn(string fileName, string languageExtension)
         {
 
-            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, fileName + "Base.txt");
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Templates\\", fileName + "Base." + languageExtension + "T");
 
             string[] text = File.ReadAllLines(textFile);
 
@@ -107,9 +131,9 @@ namespace GuidGenerate
 
         }
 
-        public static void writeOut(string text, string fileName)
+        public static void writeOut(string text, string fileName, string languageExtension)
         {
-            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Generated\\" + fileName + "Base.cs"), text);
+            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\Generated\\" + fileName + "Base." + languageExtension), text);
 
         }
     }

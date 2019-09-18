@@ -12,12 +12,12 @@ namespace #namespaceName#
 		public #className#(){}
     
 #getter#
-		public #type# #getProp#() {
+		public #type# get#prop#() {
         		return #prop#;
     		}
 
 #setter#
-    		public void #setProp#(#type# newValue) {
+    		public void set#prop#(#type# newValue) {
         		#prop# = newValue;
     		}
 	}

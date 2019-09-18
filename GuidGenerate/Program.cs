@@ -17,7 +17,7 @@ namespace GuidGenerate
             //Has the class GUID value or not
             Boolean classAttr = InsertGuid.hasClassAttr(typeof(PersonStart));
 
-            GenerateClass.generateClass("Template", "GuidGenerate", "Person", classAttr, props, attrs);
+            GenerateClass.generateClass("Template", "java", "GuidGenerate", "Person", classAttr, props, attrs);
 
         }
     }
