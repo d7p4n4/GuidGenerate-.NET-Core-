@@ -7,8 +7,10 @@ namespace GuidGenerate
 {
     class GenerateClassAlgebra
     {
-        public static string generateClass(string[] text, string package, string className, Dictionary<string, string> map)
+        public static void generateClass(string templateName, string package, string className, Dictionary<string, string> map)
         {
+            string[] text = readIn(templateName);
+
             string replaced = "";
             string newLine = "";
 
@@ -92,7 +94,9 @@ namespace GuidGenerate
             replaced = replaced.Replace("#className#", className + "Algebra");
             replaced = replaced.Replace("#parentClassName#", className + "Base");
 
-            return replaced;
+            writeOut(replaced, className);
+
+            GenerateClassEmpty.generateClass(templateName, package, className);
         }
 
             public static string[] readIn(string fileName)

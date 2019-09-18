@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace GuidGenerate
 {
     class GenerateClass
     {
-        public static string generateClass(string[] text, string package, string className, Boolean classAttr, Dictionary<string, string> map, Dictionary<string, string> guid)
+        public static void generateClass(string fileName, string package, string className, Boolean classAttr, Dictionary<string, string> map, Dictionary<string, string> guid)
         {
+            string[] text = readIn(fileName);
             string replaced = "";
 
             for (int i = 0; i < text.Length; i++)
@@ -86,10 +88,29 @@ namespace GuidGenerate
                 }
             }
             replaced = replaced.Replace("#namespaceName#", package);
-            
             replaced = replaced.Replace("#className#", className + "Base");
 
-            return replaced;
+            writeOut(replaced, className);
+
+            GenerateClassAlgebra.generateClass(fileName, package, className, map);
+        }
+
+        public static string[] readIn(string fileName)
+        {
+
+            string textFile = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, fileName + "Base.txt");
+
+            string[] text = File.ReadAllLines(textFile);
+
+            return text;
+
+
+        }
+
+        public static void writeOut(string text, string fileName)
+        {
+            System.IO.File.WriteAllText(Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + "\\" + fileName + "Base.cs"), text);
+
         }
     }
 }
