@@ -25,7 +25,7 @@ namespace GuidGenerate
 
             string[] algebraText = GenerateClassAlgebra.readIn("Template");
             string algebra = GenerateClassAlgebra.generateClass(algebraText, "GuidGenerate", "Person", props);
-            Console.WriteLine(algebra);
+            GenerateClassAlgebra.writeOut(algebra, "Person");
         }
     }
 }

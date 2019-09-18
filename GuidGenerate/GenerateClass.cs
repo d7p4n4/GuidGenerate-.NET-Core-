@@ -47,7 +47,7 @@ namespace GuidGenerate
                     foreach (var pair in map)
                     {
                         string newLine = text[i + 1].Replace("#type#", pair.Value);
-                        newLine = newLine.Replace("#getProp#", "get" + pair.Key);
+                        newLine = newLine.Replace("#getProp#", "get" + pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
 
                         replaced = replaced + "\n" + newLine;
 
@@ -60,7 +60,7 @@ namespace GuidGenerate
                 {
                     foreach (var pair in map)
                     {
-                        string newLine = text[i + 1].Replace("#setProp#", "set" + pair.Key);
+                        string newLine = text[i + 1].Replace("#setProp#", "set" + pair.Key.Substring(0, 1).ToUpper() + pair.Key.Substring(1));
                         newLine = newLine.Replace("#type#", pair.Value);
 
                         replaced = replaced + "\n" + newLine;

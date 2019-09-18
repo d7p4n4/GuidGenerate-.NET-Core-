@@ -5,60 +5,60 @@ using System.Text;
 
 namespace GuidGenerate
 {
-       [GUID("4277f9e5-1f66-4fa1-afc5-c108a6f7150b")]
+       [GUID("6c030e66-a9fb-452c-a567-4f8465e25740")]
 	public class PersonBase 
 	{
-            [GUID("ef42cfaa-9914-486a-b7e8-89bf1e960e86")]
+            [GUID("b0f89e85-0bd4-4bf5-9c0a-0f9817e93050")]
     		private String name;
-            [GUID("7ff9d779-fe40-49f6-ac99-12c22aab6815")]
+            [GUID("daba7610-2eb8-4a28-9ce1-db8fad975afe")]
     		private String address;
-            [GUID("b01666e5-be1b-4d93-a5eb-aa23306bc4aa")]
+            [GUID("9330e21b-d318-4974-b0f3-3e5bc5a58b63")]
     		private Int32 age;
-            [GUID("458dc3d8-1472-4195-a0a6-3c4af9267fc0")]
+            [GUID("2b644304-a1ee-4c46-90e8-4ee8813a83b0")]
     		private Boolean gender;
-            [GUID("97b843fc-fcee-49af-9224-04510f52721d")]
+            [GUID("e078368f-4d61-44df-a69e-1c39fcf79305")]
     		private List<String> list;
 
 		public PersonBase(){}
     
-		public String getname() {
+		public String getName() {
         		return name;
         }
 
-		public String getaddress() {
+		public String getAddress() {
         		return address;
         }
 
-		public Int32 getage() {
+		public Int32 getAge() {
         		return age;
         }
 
-		public Boolean getgender() {
+		public Boolean getGender() {
         		return gender;
         }
 
-		public List<String> getlist() {
+		public List<String> getList() {
         		return list;
         }
 
 
-    		public void setname(String newValue) {
+    		public void setName(String newValue) {
         		name = newValue;
         }
 
-    		public void setaddress(String newValue) {
+    		public void setAddress(String newValue) {
         		address = newValue;
         }
 
-    		public void setage(Int32 newValue) {
+    		public void setAge(Int32 newValue) {
         		age = newValue;
         }
 
-    		public void setgender(Boolean newValue) {
+    		public void setGender(Boolean newValue) {
         		gender = newValue;
         }
 
-    		public void setlist(List<String> newValue) {
+    		public void setList(List<String> newValue) {
         		list = newValue;
         }
 
