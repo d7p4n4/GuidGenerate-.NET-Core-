@@ -14,7 +14,27 @@ namespace GuidGenerate
 
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i].Equals("#properties#"))
+                if(text[i].Equals("#constructor#"))
+                {
+                    string propNames = "";
+                    string newLine = "";
+
+                    foreach(var pair in map)
+                    {
+                        propNames = propNames + pair.Key + ", ";
+                    }
+                    newLine = text[i + 1].Replace("#allProps#", propNames.Substring(0, propNames.Length - 2)) + "\n";
+                    foreach(var pair in map)
+                    {
+                        newLine = newLine + text[i + 2].Replace("#prop#", pair.Key) + "\n";
+                    }
+                    newLine = newLine + text[i + 3];
+
+                    replaced = replaced + "\n" + newLine;
+
+                    i = i + 3;
+                }
+                else if (text[i].Equals("#properties#"))
                 {
                     foreach (var pair in map)
                     {
