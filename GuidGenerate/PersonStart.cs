@@ -5,6 +5,7 @@ namespace GuidGenerate
 {
     public class PersonStart
     {
+        public int id { get; set; }
         [GUID()]
         public string name { get; set; }
         public string address { get; set; }
