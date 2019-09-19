@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace GuidGenerate
 {
+    [Persistent()]
     public class PersonStart
     {
         public int id { get; set; }

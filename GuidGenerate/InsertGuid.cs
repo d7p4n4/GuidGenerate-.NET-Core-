@@ -60,11 +60,20 @@ namespace GuidGenerate
             return attrs;
         }
 
-        public static Boolean hasClassAttr(Type anyType)
+        public Boolean isPersistent(Type anyType)
+        {
+            Boolean val = false;
+
+
+
+            return val;
+        }
+
+        public static Boolean hasClassAttr(Type anyType, Type attributeType)
         {
             Boolean value = false;
 
-            Attribute classAttr = anyType.GetCustomAttribute(typeof(GUID), false);
+            Attribute classAttr = anyType.GetCustomAttribute(attributeType, false);
 
             if(classAttr != null)
             {

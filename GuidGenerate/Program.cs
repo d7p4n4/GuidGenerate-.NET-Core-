@@ -15,9 +15,10 @@ namespace GuidGenerate
             Dictionary<string, string> attrs = InsertGuid.getAttrs(typeof(PersonStart));
 
             //Has the class GUID value or not
-            Boolean classAttr = InsertGuid.hasClassAttr(typeof(PersonStart));
+            Boolean classAttr = InsertGuid.hasClassAttr(typeof(PersonStart), typeof(GUID));
+            Boolean persistent = InsertGuid.hasClassAttr(typeof(PersonStart), typeof(Persistent));
 
-            GenerateClass.generateClass("Template", "cs", "GuidGenerate", "Person", classAttr, props, attrs);
+            GenerateClass.generateClass("Template", "cs", "GuidGenerate", "Person", classAttr, persistent, props, attrs);
 
         }
     }

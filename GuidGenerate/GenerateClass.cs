@@ -7,10 +7,19 @@ namespace GuidGenerate
 {
     class GenerateClass
     {
-        public static void generateClass(string fileName, string languageExtension, string package, string className, Boolean classAttr, Dictionary<string, string> map, Dictionary<string, string> guid)
+        public static void generateClass(string fileName, string languageExtension, string package, string className, Boolean classAttr, Boolean persistent, Dictionary<string, string> map, Dictionary<string, string> guid)
         {
-            string[] text = readIn(fileName, languageExtension);
-            string replaced = "";
+            string[] text = new String[0];
+
+            if (persistent && languageExtension.Equals("cs"))
+            {
+                text = readIn(fileName + "Persistent", languageExtension);
+            }
+            else
+            {
+               text = readIn(fileName, languageExtension);
+            }
+                string replaced = "";
 
             for (int i = 0; i < text.Length; i++)
             {
@@ -134,7 +143,14 @@ namespace GuidGenerate
             replaced = replaced.Replace("#namespaceName#", package);
             replaced = replaced.Replace("#className#", className + "Base");
 
-            writeOut(replaced, className, languageExtension);
+            if (persistent && languageExtension.Equals("cs"))
+            {
+                writeOut(replaced, className + "Persistent", languageExtension);
+            }
+            else
+            {
+                writeOut(replaced, className, languageExtension);
+            }
 
             GenerateClassAlgebra.generateClass(fileName, languageExtension, package, className, map);
         }
